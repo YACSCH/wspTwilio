@@ -8,13 +8,13 @@ const client = twilio(accountSid, authToken);
 
 const sendWspTwilio = async (req, res) => {
     try {
-        const data = await req.json();
+        const data = req.body;
         const message = await client.messages.create({
           body: data.message,
-          from: "+14252797504",
+          from: "+13055704102",
           to: data.phone,
         });
-        console.log(message.sid);  
+        res.status(200).json({ message: 'Message sent successfully', sid: message.sid }); 
     } catch (error) {
         res.status(500).json({ message: 'Unexpected server error', error: error.message });
     }
