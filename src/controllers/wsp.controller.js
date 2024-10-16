@@ -11,8 +11,8 @@ const sendWspTwilio = async (req, res) => {
         const data = req.body;
         const message = await client.messages.create({
           body: data.message,
-          from: "+13055704102",
-          to: data.phone,
+          from: "whatsapp:+13055704102",
+          to: "whatsapp:" + data.phone,
         });
         res.status(200).json({ message: 'Message sent successfully', sid: message.sid }); 
     } catch (error) {
