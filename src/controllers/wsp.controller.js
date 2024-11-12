@@ -5,14 +5,15 @@ config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const phone = process.env.PHONE_FROM
+const contentSid = process.env.CONTENTSID 
 const client = twilio(accountSid, authToken);
 
 const sendWspTwilio = async (req, res) => {
     try {
         const data = req.body;
-        
         const message = await client.messages.create({
-          body: `Estimado(a), tiene workflow pendientes de aprobación ${data.solped}.Puede dirigirse a la siguiente URL: ${data.url} `,
+          contentSid:contentSid,
+          contentVariables: JSON.stringify({ 1: `${data.solped}`, 2 : `${data.url}` }),
           from: 'whatsapp:' + phone,
           to:  'whatsapp:' + data.phone,
         });
